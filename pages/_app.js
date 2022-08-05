@@ -9,7 +9,7 @@ function MyApp({ Component, pageProps }) {
 
   const dashRoutes = [
     "/dashboard",
-    "/users", "/members",
+    "/users", "/member", "/view-members",
     "/territories", "/reports", "/profile", "/settings", "/events", "/import", "/active", "/inactive",
   ]
 

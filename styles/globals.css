@@ -17,3 +17,49 @@ a {
 .site-page-header {
   border: 1px solid rgb(235, 237, 240);
 }
+.site-card-wrapper{
+  margin: 2em;
+}
+.id {
+  position: absolute; /*Can also be `fixed`*/
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  /*Solves a problem in which the content is being cut when the div is smaller than its' wrapper:*/
+  max-width: 100%;
+  max-height: 100%;
+  overflow: auto;
+}
+.FlexContainer {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  align-content: flex-start;
+  width: 8.375in;
+  background-color: #2f1d58;
+  height: 5.125in;
+  overflow: auto;
+  flex-direction: row;
+}
+
+.FlexContainer #id-img-div {
+  width: 200px;
+  
+  margin: 18px;
+border: 3px solid darkgray;}
+
+.FlexContainer #id-details-div {
+  width: -webkit-fill-available;
+  height: 200px;
+  margin: 18px;
+  padding: 1em;
+  font-size: large;
+  font-family: 'Times New Roman', Times, serif;
+}
+#id-details-div h1, label {
+  font-size: x-large;
+  font-weight: 500;
+}
