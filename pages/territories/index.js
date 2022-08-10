@@ -18,14 +18,14 @@ function Territories(territories) {
     return (
 
         <Layout>
-            {console.log("rwerwty", dataArray)}
+            {console.log("rwerwty", dataArray.id)}
 
             <Content>
                 <PagesHeader title="View Members" subTitle="All Territories" />
                 <List
-                    rowKey={dataArray.name}
                     size="large"
                     header={<div>All Territories</div>}
+                    rowKey={dataArray.name}
                     bordered
                     dataSource={dataArray.name}
                     renderItem={(item) => <List.Item>{item}</List.Item>}
