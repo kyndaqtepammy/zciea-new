@@ -10,6 +10,7 @@ function Territories(territories) {
     let dataArray = [];
 
     useEffect(() => {
+        console.log(info)
         info?.forEach(e => {
             dataArray.push(e?.name)
         })
@@ -22,10 +23,11 @@ function Territories(territories) {
             <Content>
                 <PagesHeader title="View Members" subTitle="All Territories" />
                 <List
+                    rowKey={dataArray.name}
                     size="large"
                     header={<div>All Territories</div>}
                     bordered
-                    dataSource={dataArray}
+                    dataSource={dataArray.name}
                     renderItem={(item) => <List.Item>{item}</List.Item>}
                 />
             </Content>

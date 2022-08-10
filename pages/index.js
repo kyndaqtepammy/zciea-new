@@ -4,6 +4,7 @@ import { UserOutlined, LockOutlined, LoadingOutlined } from "@ant-design/icons";
 import logo from '../public/img/logo.png';
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useRouter } from 'next/router'
 const { Title } = Typography;
 const failed = "failed";
 const success = "success"
@@ -11,7 +12,8 @@ const success = "success"
 export default function Home() {
 	const [loginSuccess, setLoginSucess] = useState(null);
 	const [responseMessage, setResponseMessage] = useState();
-	const [loading, setLoading] = useState(false)
+	const [loading, setLoading] = useState(false);
+	const router = useRouter();
 	const antIcon = (
 		<LoadingOutlined
 			style={{
@@ -31,9 +33,10 @@ export default function Home() {
 		})
 			.then(function (response) {
 				setLoading(false)
-				console.log(response.data);
+				console.log("response", response.data);
 				setResponseMessage(response.data.message);
-				response.data.code !== 200 ? setLoginSucess(failed) : setLoginSucess(success)
+				if (response.data.code !== 200) { setLoginSucess(failed) }
+				if (response.data.error === null && response.data.token) { setLoginSucess(success); router.push("/dashboard") }
 			})
 			.catch(function (error) {
 				setLoading(false)
@@ -60,7 +63,7 @@ export default function Home() {
 						justifyItems: "center",
 						backgroundColor: "#22af47",
 					}}>
-					{loading ? <div style={{textAlign: "center"}}><Spin indicator={antIcon} /></div> : <Content>
+					{loading ? <div style={{ textAlign: "center" }}><Spin indicator={antIcon} /></div> : <Content>
 						{
 							loginSuccess === success && <Alert
 								message="Success"
