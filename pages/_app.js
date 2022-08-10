@@ -9,8 +9,19 @@ function MyApp({ Component, pageProps }) {
 
   const dashRoutes = [
     "/dashboard",
-    "/users", "/member", "/view-members",
-    "/territories", "/reports", "/profile", "/settings", "/events", "/import", "/active", "/inactive",
+    "/users", 
+    "/member", 
+    "/view-members",
+    "/territories", 
+    "/reports", 
+    "/profile", 
+    "/settings", 
+    "/events",
+    "/import", 
+    "/active",
+    "/inactive",  
+    "/add-users",
+    "/active-inactive"
   ]
 
   const showAdminDash = dashRoutes.includes(router.pathname) ? true : false;

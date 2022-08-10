@@ -46,7 +46,7 @@ const router = useRouter();
 							key: "/users",
 							icon: <UserOutlined />,
 							label: "Users",
-							children: [{ label: 'Add Users', key: '/add-users' }],
+							children: [{ label: 'Add Users', key: '/add-users' }, { label: 'All Users', key: '/all-users' }],
 						},
 						{
 							key: "/members",
@@ -58,10 +58,9 @@ const router = useRouter();
 							],
 						},
                         {
-							key: "/territories",
 							icon: <HeatMapOutlined />,
 							label: "Territories",
-							children: [{ label: 'item 3', key: 'submenu-item-1' }],
+							children: [{ label: 'All Territories', key: '/territories' }],
 						},
                         {
 							key: "/reports",

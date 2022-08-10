@@ -1,13 +1,46 @@
-import { Layout, Button, Checkbox, Form, Input, Card, Avatar } from "antd";
+import { Layout, Button, Checkbox, Form, Input, Card, Avatar, Alert, Typography, Spin } from "antd";
 const { Content } = Layout;
-import { UserOutlined, LockOutlined } from "@ant-design/icons";
-import { Typography } from 'antd';
+import { UserOutlined, LockOutlined, LoadingOutlined } from "@ant-design/icons";
 import logo from '../public/img/logo.png';
+import axios from "axios";
+import { useEffect, useState } from "react";
 const { Title } = Typography;
+const failed = "failed";
+const success = "success"
 
 export default function Home() {
-	const onFinish = (values) => {
-		//console.log("Success:", values);
+	const [loginSuccess, setLoginSucess] = useState(null);
+	const [responseMessage, setResponseMessage] = useState();
+	const [loading, setLoading] = useState(false)
+	const antIcon = (
+		<LoadingOutlined
+			style={{
+				fontSize: 64,
+				color: "white"
+			}}
+			spin
+		/>
+	);
+
+	const onFinish = async (values) => {
+		setLoading(true);
+		console.log("Success:", values);
+		axios.post('https://api.zciea.trade/api/login', {
+			email: values.email,
+			password: values.password
+		})
+			.then(function (response) {
+				setLoading(false)
+				console.log(response.data);
+				setResponseMessage(response.data.message);
+				response.data.code !== 200 ? setLoginSucess(failed) : setLoginSucess(success)
+			})
+			.catch(function (error) {
+				setLoading(false)
+				console.log(error);
+				setResponseMessage(error);
+				setLoginSucess(failed);
+			});
 	};
 
 	const onFinishFailed = (errorInfo) => {
@@ -27,11 +60,29 @@ export default function Home() {
 						justifyItems: "center",
 						backgroundColor: "#22af47",
 					}}>
-					<Content>
-						<Card style={{ width: 400, margin: "auto", display:"block",marginTop: "10vh",
-}}>
-  <Avatar size={84} src={logo.src} shape="square" />
-  <Title level={2}>Sign in</Title>
+					{loading ? <div style={{textAlign: "center"}}><Spin indicator={antIcon} /></div> : <Content>
+						{
+							loginSuccess === success && <Alert
+								message="Success"
+								description={responseMessage}
+								type="success"
+								showIcon
+							/>
+						}
+						{
+							loginSuccess === failed &&
+							<Alert
+								message="Error"
+								description={responseMessage}
+								type="error"
+								showIcon
+							/>
+						}
+						<Card style={{
+							width: 400, margin: "auto", display: "block", marginTop: "10vh",
+						}}>
+							<Avatar size={84} src={logo.src} shape="square" />
+							<Title level={2}>Sign in</Title>
 							<Form
 								name="normal_login"
 								className="login-form"
@@ -40,7 +91,7 @@ export default function Home() {
 								}}
 								onFinish={onFinish}>
 								<Form.Item
-									name="username"
+									name="email"
 									rules={[
 										{
 											required: true,
@@ -87,7 +138,7 @@ export default function Home() {
 								</Form.Item>
 							</Form>
 						</Card>
-					</Content>
+					</Content>}
 				</Layout>
 			</Layout>
 		</>
