@@ -40,8 +40,8 @@ export default function Home() {
 			})
 			.catch(function (error) {
 				setLoading(false)
-				console.log(error);
-				setResponseMessage(error);
+				console.log(error.code);
+				setResponseMessage(error.code);
 				setLoginSucess(failed);
 			});
 	};
