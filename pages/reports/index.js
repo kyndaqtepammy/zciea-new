@@ -22,7 +22,6 @@ function Reports() {
                         header={<div>Reports</div>}
                         bordered
                         dataSource={data}
-                        key={item.key}
                         rowKey={item.key}
                         renderItem={(item) => (
                             <List.Item
