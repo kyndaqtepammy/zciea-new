@@ -22,14 +22,14 @@ function Territories(territories) {
 
             <Content>
                 <PagesHeader title="View Members" subTitle="All Territories" />
-                <List
+                {/* <List
                     size="large"
                     header={<div>All Territories</div>}
                     rowKey={dataArray.name}
                     bordered
                     dataSource={dataArray.name}
                     renderItem={(item) => <List.Item>{item}</List.Item>}
-                />
+                /> */}
             </Content>
         </Layout>
     );
