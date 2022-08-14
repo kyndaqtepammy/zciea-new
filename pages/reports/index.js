@@ -17,7 +17,7 @@ function Reports() {
             <Layout>
                 <Content>
                     <PagesHeader title="Reports" subTitle="Click to view detailed reports" />
-                    <List
+                    {/* <List
                         size="large"
                         header={<div>Reports</div>}
                         bordered
@@ -30,7 +30,7 @@ function Reports() {
                                 {item.text}
                             </List.Item>
                         )}>
-                    </List>
+                    </List> */}
                 </Content>
             </Layout>
         </>
