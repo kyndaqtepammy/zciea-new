@@ -3,10 +3,11 @@ import { useEffect, useState } from "react";
 import { Descriptions } from 'antd';
 import React, { useRef } from 'react';
 import ReactToPrint from 'react-to-print';
-import bgimg from '../../public/img/idcard.jpg';
+import bgimg from '../../public/img/idcard2.jpg';
 import logo from '../../public/img/avatar.webp';
 import Image from "next/image"
 import { Button } from 'antd';
+import {QRCodeSVG} from 'qrcode.react';
 
 function Member() {
     const router = useRouter();
@@ -61,25 +62,32 @@ function Member() {
                             lknsalsnflsndflnal\
                         </div>
                     </div> */}
-                    <section className='FlexContainer' style={{ backgroundImage: `url(${bgimg.src})`, backgroundSize: "cover" }} >
-                        <div id="id-img-div">
+                    <section className='FlexContainer' style={{ backgroundImage: `url(${bgimg.src})`, backgroundSize: "cover",marginLeft: "14em" }} >
+                        <div id="id-img-div" style={{marginLeft: "4em", marginTop: "5em", width: "250px"}}>
+                            <div style={{border: "3px solid grey", marginTop:"6em"}}>
                             <Image
-                                width={200}
-                                height={200}
+                                width={250}
+                                height={250}
                                 src={logo}
                                 blurDataURL="data:image/jpeg;base64,/9j/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAb/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWEREiMxUf/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
                                 alt="Picture"
                                 placeholder="blur"
                             />
+                            </div>
+                         <QRCodeSVG value= {member?.results[0]?.name.split(" ")[0]}  style={{marginTop:"3em"}}/>
+
                         </div>
+
                         <div id="id-details-div">
-                            <span><h1>Name: {member?.results[0]?.name.split(" ")[0]}</h1></span>
-                            <span><h1>Surname: {member?.results[0]?.name.split(" ")[1]}</h1></span>
-                            <span><h1>ID Number: {member?.results[0]?.id_number}</h1></span>
-                            <span><h1>Territorry: {member?.results[0]?.territory}</h1></span>
-                            <span><h1>Gender: {member?.results[0]?.gender}</h1></span>
-                            <span style={{whiteSpace: "nowrap"}}><label>Validity:</label><input type="text" style={{border: "none", fontSize: "x-large"}} /></span>
+                            <span><h4>Name: {member?.results[0]?.name.split(" ")[0]}</h4></span>
+                            <span><h4>Surname: {member?.results[0]?.name.split(" ")[1]}</h4></span>
+                            <span><h4>ID Number: {member?.results[0]?.id_number}</h4></span>
+                            <span><h4>Territorry: {member?.results[0]?.territory}</h4></span>
+                            <span><h4>Gender: {member?.results[0]?.gender}</h4></span>
+                            <span style={{whiteSpace: "nowrap"}}><label>Date of issue:</label><input type="text" style={{border: "none", fontSize: "medium"}} /></span>
+                            <span style={{whiteSpace: "nowrap"}}><label>Expiry:</label><input type="text" style={{border: "none", fontSize: "large"}} /></span>
                         </div>
+
                     </section>
                 </div>
             </div>
