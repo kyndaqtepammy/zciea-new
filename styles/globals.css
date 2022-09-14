@@ -39,23 +39,20 @@ a {
   align-items: center;
   align-content: flex-start;
   width: 8.375in;
-  background-color: #2f1d58;
   height: 5.125in;
-  overflow: auto;
+  overflow: none;
   flex-direction: row;
 }
 
 .FlexContainer #id-img-div {
-  width: 200px;
-  
+  width: 150px;
   margin: 18px;
-
 }
 
 .FlexContainer #id-details-div {
   width: -webkit-fill-available;
   height: 200px;
-  margin: 18px;
+  margin: 18px 5em;
   padding: 1em;
   font-size: large;
 }
