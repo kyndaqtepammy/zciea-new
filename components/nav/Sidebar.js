@@ -69,16 +69,16 @@ function Sidebar(pageProps) {
               label: "Territories",
               children: [{ label: "All Territories", key: "/territories" }],
             },
-            {
-              key: "/reports",
-              icon: <AreaChartOutlined />,
-              label: "Reports",
-            },
-            {
-              key: "/profile",
-              icon: <ProfileOutlined />,
-              label: "Profile",
-            },
+            // {
+            //   key: "/reports",
+            //   icon: <AreaChartOutlined />,
+            //   label: "Reports",
+            // },
+            // {
+            //   key: "/profile",
+            //   icon: <ProfileOutlined />,
+            //   label: "Profile",
+            // },
             {
               key: "/",
               icon: <LogoutOutlined />,
