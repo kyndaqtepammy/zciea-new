@@ -9,16 +9,20 @@ import {
   Radio,
   Select,
   Switch,
-  TreeSelect,
+  Option,
   Alert,
   Spin,
+  Upload,
 } from "antd";
+import { UploadOutlined } from "@ant-design/icons";
 import PagesHeader from "../components/header/Pageheader";
+import axios from "axios";
 
 export default function AddMember() {
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState("");
   const [loading, setLoading] = useState(false);
+  const [territories, setTerritories] = useState([]);
 
   const prefixSelector = (
     <Form.Item name="prefix" noStyle>
@@ -33,12 +37,35 @@ export default function AddMember() {
     </Form.Item>
   );
 
+  const normFile = (e) => {
+    console.log("Upload event:", e);
+    if (Array.isArray(e)) {
+      return e;
+    }
+    return e?.fileList;
+  };
+
+  const getTerritories = () => {
+    axios
+      .get("https://api.zciea.trade/api/territories")
+      .then((res) => {
+        console.log(res.data.members);
+        setTerritories(res?.data?.members);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    getTerritories();
+  }, []);
   const onFinish = (values) => {
     //console.log("Received values of form: ", values);
     axios
-      .post("https://api.zciea.trade/api/register", values)
+      .post("https://api.zciea.trade/api/uploads", values)
       .then((res) => {
-        console.log(res);
+        console.log(res?.data);
         setLoading(false);
         if (res?.data?.token) {
           setMessage("User Added successfully");
@@ -107,7 +134,7 @@ export default function AddMember() {
           <Form.Item label="Disablity" name="disablity">
             <Select>
               <Select.Option value="1">Yes</Select.Option>
-              <Select.Option value="2">No</Select.Option>
+              <Select.Option value="0">No</Select.Option>
             </Select>
           </Form.Item>
 
@@ -121,41 +148,19 @@ export default function AddMember() {
 
           <Form.Item label="Territory" name="territory">
             <Select>
-              <Select.Option value="1">CHEGUTU</Select.Option>
-              <Select.Option value="2">CHIREDZI</Select.Option>
-              <Select.Option value="2">CHIREDZI</Select.Option>
-              <Select.Option value="2">CHIREDZI</Select.Option>
-              <Select.Option value="2">CHIREDZI</Select.Option>
-              <Select.Option value="2">CHIREDZI</Select.Option>
-              <Select.Option value="2">CHIREDZI</Select.Option>
-              <Select.Option value="2">CHIREDZI</Select.Option>
-              <Select.Option value="2">CHIREDZI</Select.Option>
-              <Select.Option value="2">CHIREDZI</Select.Option>
-              <Select.Option value="2">CHIREDZI</Select.Option>
-              <Select.Option value="2">CHIREDZI</Select.Option>
-              <Select.Option value="2">CHIREDZI</Select.Option>
-              <Select.Option value="2">CHIREDZI</Select.Option>
-              <Select.Option value="2">CHIREDZI</Select.Option>
-              <Select.Option value="2">CHIREDZI</Select.Option>
-              <Select.Option value="2">CHIREDZI</Select.Option>
-              <Select.Option value="2">CHIREDZI</Select.Option>
-              <Select.Option value="2">CHIREDZI</Select.Option>
-              <Select.Option value="2">CHIREDZI</Select.Option>
-              <Select.Option value="2">CHIREDZI</Select.Option>
-              <Select.Option value="2">CHIREDZI</Select.Option>
-              <Select.Option value="2">CHIREDZI</Select.Option>
-              <Select.Option value="2">CHIREDZI</Select.Option>
-              <Select.Option value="2">CHIREDZI</Select.Option>
-              <Select.Option value="2">CHIREDZI</Select.Option>
-              <Select.Option value="2">CHIREDZI</Select.Option>
+              {territories.map((territory, index) => (
+                <Select.Option key={index} value={territory.name}>
+                  {territory.name}
+                </Select.Option>
+              ))}
             </Select>
           </Form.Item>
 
           <Form.Item label="Gender" name="gender">
             <Select>
-              <Select.Option value="1">Male</Select.Option>
-              <Select.Option value="2">Female</Select.Option>
-              <Select.Option value="2">Other</Select.Option>
+              <Select.Option value="male">Male</Select.Option>
+              <Select.Option value="female">Female</Select.Option>
+              <Select.Option value="other">Other</Select.Option>
             </Select>
           </Form.Item>
 
@@ -197,19 +202,16 @@ export default function AddMember() {
           </Form.Item>
 
           {/* <Form.Item
-            label="Password"
-            name="password"
-            rules={[{ required: true, message: "Value cannot be empty" }]}
+            name="myFile"
+            label="Upload"
+            valuePropName="fileList"
+            getValueFromEvent={normFile}
           >
-            <Input type="password" />
-          </Form.Item>
-
-          <Form.Item label="User Role" name="role">
-            <Select>
-              <Select.Option value="1">Full Admin Access</Select.Option>
-              <Select.Option value="2">Restricted Access</Select.Option>
-            </Select>
+            <Upload name="myFile" listType="picture">
+              <Button icon={<UploadOutlined />}>Click to upload</Button>
+            </Upload>
           </Form.Item> */}
+
           <Form.Item label=" ">
             <Button
               type="primary"
@@ -223,4 +225,14 @@ export default function AddMember() {
       )}
     </>
   );
+}
+export async function getStaticProps() {
+  const res = await fetch("https://api.zciea.trade/api/territories");
+  const territories = await res.json();
+
+  return {
+    props: {
+      territories,
+    },
+  };
 }
