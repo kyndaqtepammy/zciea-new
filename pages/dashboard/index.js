@@ -24,46 +24,46 @@ function Dashboard() {
       link: "/view-members",
       icon: <UserOutlined size={64} color="#22af47" />,
     },
-    // {
-    //   title: "New Member",
-    //   link: "/addmember",
-    //   icon: <UserAddOutlined size={64} color="#22af47" />,
-    // },
+    {
+      title: "New Member",
+      link: "/add-member",
+      icon: <UserAddOutlined size={64} color="#22af47" />,
+    },
     {
       title: "Territories",
       link: "/territories",
       icon: <GlobalOutlined size={64} color="#22af47" />,
     },
-    // {
-    //   title: "Active Members",
-    //   link: "/active",
-    //   icon: <CheckSquareOutlined size={64} color="#22af47" />,
-    // },
-    // {
-    //   title: "Inactive Members",
-    //   link: "/inactive",
-    //   icon: <CloseSquareOutlined size={64} color="#22af47" />,
-    // },
-    // {
-    //   title: "Reports",
-    //   link: "/reports",
-    //   icon: <AreaChartOutlined size={64} color="#22af47" />,
-    // },
-    // {
-    //   title: "Settings",
-    //   link: "/settings",
-    //   icon: <SettingOutlined size={64} color="#22af47" />,
-    // },
-    // {
-    //   title: "Events",
-    //   link: "/events",
-    //   icon: <CalendarOutlined size={64} color="#22af47" />,
-    // },
-    // {
-    //   title: "Import",
-    //   link: "/import",
-    //   icon: <DownSquareOutlined size={64} color="#22af47" />,
-    // },
+    {
+      title: "Active Members",
+      link: "/active",
+      icon: <CheckSquareOutlined size={64} color="#22af47" />,
+    },
+    {
+      title: "Inactive Members",
+      link: "/inactive",
+      icon: <CloseSquareOutlined size={64} color="#22af47" />,
+    },
+    {
+      title: "Reports",
+      link: "/reports",
+      icon: <AreaChartOutlined size={64} color="#22af47" />,
+    },
+    {
+      title: "Settings",
+      link: "/settings",
+      icon: <SettingOutlined size={64} color="#22af47" />,
+    },
+    {
+      title: "Events",
+      link: "/events",
+      icon: <CalendarOutlined size={64} color="#22af47" />,
+    },
+    {
+      title: "Import",
+      link: "/import",
+      icon: <DownSquareOutlined size={64} color="#22af47" />,
+    },
     // {
     //   title: "Targeted SMS",
     //   link: "/targeted-sms",

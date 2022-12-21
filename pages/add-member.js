@@ -61,7 +61,16 @@ export default function AddMember() {
     getTerritories();
   }, []);
   const onFinish = (values) => {
-    //console.log("Received values of form: ", values);
+    //  console.log("Received values of form: ", values);
+    let formdata = new FormData();
+    // formdata.append(values);
+    Object.entries(values).forEach(([key, value]) =>
+      formdata.append(key, value)
+    );
+    for (const pair of formdata.entries()) {
+      console.log(`${pair[0]}, ${pair[1]}`);
+    }
+
     axios
       .post("https://api.zciea.trade/api/uploads", values)
       .then((res) => {
@@ -175,7 +184,7 @@ export default function AddMember() {
           <Form.Item
             label="Contact"
             name="contact"
-            //rules={[{ required: true, message: "Value cannot be empty" }]}
+            rules={[{ required: true, message: "Value cannot be empty" }]}
           >
             <InputNumber
               addonBefore={prefixSelector}
@@ -201,16 +210,16 @@ export default function AddMember() {
             <Input type="email" />
           </Form.Item>
 
-          {/* <Form.Item
-            name="myFile"
+          <Form.Item
+            name="image"
             label="Upload"
             valuePropName="fileList"
             getValueFromEvent={normFile}
           >
-            <Upload name="myFile" listType="picture">
+            <Upload name="image" listType="picture" beforeUpload={() => false}>
               <Button icon={<UploadOutlined />}>Click to upload</Button>
             </Upload>
-          </Form.Item> */}
+          </Form.Item>
 
           <Form.Item label=" ">
             <Button
