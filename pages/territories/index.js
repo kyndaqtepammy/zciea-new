@@ -47,7 +47,7 @@ function Territories(territories) {
 export default Territories;
 
 export async function getStaticProps() {
-  const res = await fetch("https://api.zciea.trade/api/territories");
+  const res = await fetch("http://localhost:5000/territories");
   const territories = await res.json();
 
   return {

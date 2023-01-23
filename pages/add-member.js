@@ -23,6 +23,7 @@ export default function AddMember() {
   const [messageType, setMessageType] = useState("");
   const [loading, setLoading] = useState(false);
   const [territories, setTerritories] = useState([]);
+  const [image, setImage] = useState()
 
   const prefixSelector = (
     <Form.Item name="prefix" noStyle>
@@ -42,12 +43,14 @@ export default function AddMember() {
     if (Array.isArray(e)) {
       return e;
     }
+    setImage(e?.fileList)
+    
     return e?.fileList;
   };
 
   const getTerritories = () => {
     axios
-      .get("https://api.zciea.trade/api/territories")
+      .get("http://localhost:5000/territories")
       .then((res) => {
         console.log(res.data.members);
         setTerritories(res?.data?.members);
@@ -61,18 +64,20 @@ export default function AddMember() {
     getTerritories();
   }, []);
   const onFinish = (values) => {
-    //  console.log("Received values of form: ", values);
-    let formdata = new FormData();
-    // formdata.append(values);
+      console.log("Received values of form: ", image[0].originFileObj);
+     let formdata = new FormData();
     Object.entries(values).forEach(([key, value]) =>
       formdata.append(key, value)
     );
+    formdata.delete("image");
+    formdata.append("myFile", image[0].originFileObj);
+
     for (const pair of formdata.entries()) {
       console.log(`${pair[0]}, ${pair[1]}`);
     }
 
     axios
-      .post("https://api.zciea.trade/api/uploads", values)
+      .post("http://localhost:5000/uploads", formdata)
       .then((res) => {
         console.log(res?.data);
         setLoading(false);
@@ -140,10 +145,11 @@ export default function AddMember() {
             <Input />
           </Form.Item>
 
-          <Form.Item label="Disablity" name="disablity">
+          <Form.Item label="Disablity" name="disability"
+          rules={[{ required: true, message: "Value cannot be empty" }]}>
             <Select>
-              <Select.Option value="1">Yes</Select.Option>
-              <Select.Option value="0">No</Select.Option>
+              <Select.Option value={1}>Yes</Select.Option>
+              <Select.Option value={0}>No</Select.Option>
             </Select>
           </Form.Item>
 
@@ -215,6 +221,7 @@ export default function AddMember() {
             label="Upload"
             valuePropName="fileList"
             getValueFromEvent={normFile}
+            rules={[{ required: true, message: "Please attach an image" }]}
           >
             <Upload name="image" listType="picture" beforeUpload={() => false}>
               <Button icon={<UploadOutlined />}>Click to upload</Button>
@@ -236,7 +243,7 @@ export default function AddMember() {
   );
 }
 export async function getStaticProps() {
-  const res = await fetch("https://api.zciea.trade/api/territories");
+  const res = await fetch("http://localhost:5000/territories");
   const territories = await res.json();
 
   return {

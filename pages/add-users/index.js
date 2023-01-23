@@ -24,7 +24,7 @@ function Users() {
   const onFinish = (values) => {
     //console.log("Received values of form: ", values);
     axios
-      .post("https://api.zciea.trade/api/register", values)
+      .post("http://localhost:5000/register", values)
       .then((res) => {
         console.log(res);
         setLoading(false);

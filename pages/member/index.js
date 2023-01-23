@@ -17,7 +17,7 @@ function Member() {
 
 
     useEffect(() => {
-        fetch('https://api.zciea.trade/api/user', {
+        fetch('http://localhost:5000/user', {
             method: 'POST',
             body: JSON.stringify({
                 userid: id

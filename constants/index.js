@@ -1,1 +1,1 @@
-export const ROOT_URL = "https://api.zciea.trade/api/"
+export const ROOT_URL = "http://localhost:5000/"

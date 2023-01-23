@@ -27,7 +27,7 @@ export default function Home() {
 	const onFinish = async (values) => {
 		setLoading(true);
 		console.log("Success:", values);
-		axios.post('https://api.zciea.trade/api/login', {
+		axios.post('http://localhost:5000/login', {
 			email: values.email,
 			password: values.password
 		})
