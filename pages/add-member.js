@@ -50,7 +50,7 @@ export default function AddMember() {
 
   const getTerritories = () => {
     axios
-      .get("https://api.zciea.trade/api/territories")
+      .get("https://api.zciea.trade/territories")
       .then((res) => {
         console.log(res.data.members);
         setTerritories(res?.data?.members);
@@ -77,7 +77,7 @@ export default function AddMember() {
     }
 
     axios
-      .post("https://www.api.zciea.trade/uploads/", formdata)
+      .post("https://www.api.zciea.trade/api/uploads/", formdata)
       .then((res) => {
         console.log(res?.data);
         setLoading(false);
