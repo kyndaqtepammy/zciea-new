@@ -46,7 +46,7 @@ function Member() {
                     trigger={() => <Button type="success" size="large" style={{marginBottom: "2em", width: "-wekit-fill-available"}}>Print Id</Button>
                 }
                     content={() => componentRef.current}
-                    pageStyle="@page { size: 0.5in 0.2in }"
+                    pageStyle="@page { size: 2.5in 2.2in }"
                 />
                 <div ref={componentRef} >
                     <section className='FlexContainer' style={{ backgroundImage: `url(${bgimg.src})`, backgroundSize: "cover",marginLeft: "14em" }} >
