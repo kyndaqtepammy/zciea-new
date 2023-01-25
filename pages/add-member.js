@@ -14,7 +14,7 @@ import {
   Spin,
   Upload,
 } from "antd";
-import { UploadOutlined } from "@ant-design/icons";
+import { UploadOutlined, LoadingOutlined } from "@ant-design/icons";
 import PagesHeader from "../components/header/Pageheader";
 import axios from "axios";
 
@@ -23,7 +23,16 @@ export default function AddMember() {
   const [messageType, setMessageType] = useState("");
   const [loading, setLoading] = useState(false);
   const [territories, setTerritories] = useState([]);
-  const [image, setImage] = useState()
+  const [image, setImage] = useState();
+  const antIcon = (
+		<LoadingOutlined
+			style={{
+				fontSize: 64,
+				color: "white"
+			}}
+			spin
+		/>
+	);
 
   const prefixSelector = (
     <Form.Item name="prefix" noStyle>
@@ -64,6 +73,7 @@ export default function AddMember() {
     getTerritories();
   }, []);
   const onFinish = (values) => {
+    setLoading(true)
       console.log("Received values of form: ", image[0].originFileObj);
      let formdata = new FormData();
     Object.entries(values).forEach(([key, value]) =>
@@ -77,14 +87,19 @@ export default function AddMember() {
     }
 
     axios
-      .post("https://www.api.zciea.trade/uploads/", formdata)
+      axios({
+        method: "post",
+        url: "https://api.zciea.trade/test",
+        data: formdata,
+        headers: { "Content-Type": "multipart/form-data" },
+      })
       .then((res) => {
         console.log(res?.data);
         setLoading(false);
-        if (res?.data?.token) {
-          setMessage("User Added successfully");
+        if (!res?.data?.error) {
+          setMessage("Member Added successfully");
           setMessageType("success");
-          window.location.replace("/");
+          window.location.replace("/dashboard");
         } else {
           setMessage(res?.data?.success);
           setMessageType("warning");
@@ -101,14 +116,9 @@ export default function AddMember() {
   return (
     <>
       <PagesHeader title="Add Member" subTitle="Add new members" />
-      <Alert message={message} type={messageType} />
+
       {loading ? (
-        <div
-          className="site-card-wrapper"
-          style={{ display: "flex", justifyContent: "center" }}
-        >
-          <Spin />
-        </div>
+        <div style={{ display: "flex", justifyContent: "center", height: "100vh"}}><Spin indicator={antIcon} style={{color: "green"}} /></div>
       ) : (
         <Form
           labelCol={{
@@ -121,6 +131,8 @@ export default function AddMember() {
           colon={false}
           onFinish={onFinish}
         >
+                <Alert message={message} type={messageType} />
+
           <Form.Item
             label="Full Name"
             name="name"
