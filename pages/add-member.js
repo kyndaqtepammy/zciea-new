@@ -77,7 +77,7 @@ export default function AddMember() {
     }
 
     axios
-      .post("https://www.api.zciea.trade/api/uploads/", formdata)
+      .post("https://www.api.zciea.trade/uploads/", formdata)
       .then((res) => {
         console.log(res?.data);
         setLoading(false);
