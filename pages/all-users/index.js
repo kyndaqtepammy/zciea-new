@@ -41,7 +41,7 @@ export default function AllUsers() {
   ];
   useEffect(() => {
     axios
-      .get("http://localhost:5000/systemusers")
+      .get("https://api.zciea.trade/systemusers")
       .then((res) => {
         setUsers(res?.data?.members);
         console.log(res);

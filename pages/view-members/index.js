@@ -88,7 +88,7 @@ export default function ViewMembers(members) {
 }
 
 export async function getStaticProps() {
-    const res = await fetch('http://localhost:5000/reports')
+    const res = await fetch('https://api.zciea.trade/reports')
     const members = await res.json()
 
     return {

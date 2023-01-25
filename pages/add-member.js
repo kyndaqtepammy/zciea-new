@@ -50,7 +50,7 @@ export default function AddMember() {
 
   const getTerritories = () => {
     axios
-      .get("http://localhost:5000/territories")
+      .get("https://api.zciea.trade/territories")
       .then((res) => {
         console.log(res.data.members);
         setTerritories(res?.data?.members);
@@ -77,7 +77,7 @@ export default function AddMember() {
     }
 
     axios
-      .post("http://localhost:5000/uploads", formdata)
+      .post("https://api.zciea.trade/", formdata)
       .then((res) => {
         console.log(res?.data);
         setLoading(false);
@@ -243,7 +243,7 @@ export default function AddMember() {
   );
 }
 export async function getStaticProps() {
-  const res = await fetch("http://localhost:5000/territories");
+  const res = await fetch("https://api.zciea.trade/territories");
   const territories = await res.json();
 
   return {
