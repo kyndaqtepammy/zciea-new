@@ -31,7 +31,7 @@ function Users() {
         if (res?.data?.token) {
           setMessage("User Added successfully");
           setMessageType("success");
-          window.location.replace("/");
+          window.location.replace("/dashboard");
         } else {
           setMessage(res?.data?.success);
           setMessageType("warning");
