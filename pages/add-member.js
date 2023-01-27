@@ -25,14 +25,14 @@ export default function AddMember() {
   const [territories, setTerritories] = useState([]);
   const [image, setImage] = useState();
   const antIcon = (
-		<LoadingOutlined
-			style={{
-				fontSize: 64,
-				color: "white"
-			}}
-			spin
-		/>
-	);
+    <LoadingOutlined
+      style={{
+        fontSize: 64,
+        color: "white",
+      }}
+      spin
+    />
+  );
 
   const prefixSelector = (
     <Form.Item name="prefix" noStyle>
@@ -52,8 +52,8 @@ export default function AddMember() {
     if (Array.isArray(e)) {
       return e;
     }
-    setImage(e?.fileList)
-    
+    setImage(e?.fileList);
+
     return e?.fileList;
   };
 
@@ -73,9 +73,9 @@ export default function AddMember() {
     getTerritories();
   }, []);
   const onFinish = (values) => {
-    setLoading(true)
-      console.log("Received values of form: ", image[0].originFileObj);
-     let formdata = new FormData();
+    setLoading(true);
+    console.log("Received values of form: ", image[0].originFileObj);
+    let formdata = new FormData();
     Object.entries(values).forEach(([key, value]) =>
       formdata.append(key, value)
     );
@@ -86,20 +86,22 @@ export default function AddMember() {
       console.log(`${pair[0]}, ${pair[1]}`);
     }
 
-    axios
-      axios({
-        method: "post",
-        url: "https://api.zciea.trade/test",
-        data: formdata,
-        headers: { "Content-Type": "multipart/form-data" },
-      })
+    axios;
+    axios({
+      method: "post",
+      url: "https://api.zciea.trade/test",
+      data: formdata,
+      headers: { "Content-Type": "multipart/form-data" },
+    })
       .then((res) => {
         console.log(res?.data);
         setLoading(false);
         if (!res?.data?.error) {
-          setMessage("Member Added successfully");
+          setMessage(
+            "Member Added successfully. Please wait while you are being redirected."
+          );
           setMessageType("success");
-          window.location.replace("/dashboard");
+          window.location.replace("/view-members");
         } else {
           setMessage(res?.data?.success);
           setMessageType("warning");
@@ -118,7 +120,11 @@ export default function AddMember() {
       <PagesHeader title="Add Member" subTitle="Add new members" />
 
       {loading ? (
-        <div style={{ display: "flex", justifyContent: "center", height: "100vh"}}><Spin indicator={antIcon} style={{color: "green"}} /></div>
+        <div
+          style={{ display: "flex", justifyContent: "center", height: "100vh" }}
+        >
+          <Spin indicator={antIcon} style={{ color: "green" }} />
+        </div>
       ) : (
         <Form
           labelCol={{
@@ -131,7 +137,7 @@ export default function AddMember() {
           colon={false}
           onFinish={onFinish}
         >
-                <Alert message={message} type={messageType} />
+          <Alert message={message} type={messageType} />
 
           <Form.Item
             label="Full Name"
@@ -157,8 +163,11 @@ export default function AddMember() {
             <Input />
           </Form.Item>
 
-          <Form.Item label="Disablity" name="disability"
-          rules={[{ required: true, message: "Value cannot be empty" }]}>
+          <Form.Item
+            label="Disablity"
+            name="disability"
+            rules={[{ required: true, message: "Value cannot be empty" }]}
+          >
             <Select>
               <Select.Option value={1}>Yes</Select.Option>
               <Select.Option value={0}>No</Select.Option>
