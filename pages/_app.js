@@ -24,6 +24,7 @@ function MyApp({ Component, pageProps }) {
     "/all-users",
     "/active-inactive",
     "/add-member",
+    "/disability",
   ];
 
   const showAdminDash = dashRoutes.includes(router.pathname) ? true : false;
