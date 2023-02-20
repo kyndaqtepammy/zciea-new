@@ -54,7 +54,7 @@ export default function ViewMembers(members) {
         console.error("Error:", error);
         setError(true);
       });
-  }, [data]);
+  }, []);
 
   const FilterByNameInput = (
     <Input
