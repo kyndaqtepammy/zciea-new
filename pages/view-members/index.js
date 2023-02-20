@@ -39,12 +39,22 @@ export default function ViewMembers(members) {
   const [data, setData] = useState();
   const [dataSource, setDataSource] = useState(members?.members?.members);
   const [value, setValue] = useState();
+  const [error, setError] = useState(false);
 
   useEffect(() => {
-    setData(members.members.members);
-    setDataSource(members?.members?.members);
-    console.log("membz", members?.members?.members.reverse());
-  }, []);
+    fetch("https://api.zciea.trade/reports")
+      .then((response) => response.json())
+      .then((data) => {
+        // Do something with the data
+        setData(data.members);
+        setDataSource(data?.members);
+        console.log("membz", data?.members);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        setError(true);
+      });
+  }, [data]);
 
   const FilterByNameInput = (
     <Input
@@ -117,20 +127,21 @@ export default function ViewMembers(members) {
       <div>
         <PagesHeader title="View Members" subTitle="All members" />
         <div className="site-card-wrapper">
-          <Table dataSource={dataSource.slice().reverse()} columns={columns} />;
+          <Table dataSource={dataSource?.slice().reverse()} columns={columns} />
+          ;
         </div>
       </div>
     </div>
   );
 }
 
-export async function getStaticProps() {
-  const res = await fetch("https://api.zciea.trade/reports");
-  const members = await res.json();
+// export async function getStaticProps() {
+//   const res = await fetch("https://api.zciea.trade/reports");
+//   const members = await res.json();
 
-  return {
-    props: {
-      members,
-    },
-  };
-}
+//   return {
+//     props: {
+//       members,
+//     },
+//   };
+// }
