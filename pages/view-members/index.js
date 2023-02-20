@@ -40,19 +40,21 @@ export default function ViewMembers(members) {
   const [dataSource, setDataSource] = useState(members?.members?.members);
   const [value, setValue] = useState();
   const [error, setError] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     fetch("https://api.zciea.trade/reports")
       .then((response) => response.json())
       .then((data) => {
         // Do something with the data
+        setIsLoading(false);
         setData(data.members);
         setDataSource(data?.members);
-        console.log("membz", data?.members);
       })
       .catch((error) => {
         console.error("Error:", error);
         setError(true);
+        setIsLoading(false);
       });
   }, []);
 
@@ -127,8 +129,23 @@ export default function ViewMembers(members) {
       <div>
         <PagesHeader title="View Members" subTitle="All members" />
         <div className="site-card-wrapper">
-          <Table dataSource={dataSource?.slice().reverse()} columns={columns} />
-          ;
+          {isLoading ? (
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "50vh",
+              }}
+            >
+              <h2>Loading...</h2>
+            </div>
+          ) : (
+            <Table
+              dataSource={dataSource?.slice().reverse()}
+              columns={columns}
+            />
+          )}
         </div>
       </div>
     </div>
