@@ -48,7 +48,7 @@ export default function AddMember() {
   );
 
   const normFile = (e) => {
-    console.log("Upload event:", e);
+    // console.log("Upload event:", e);
     if (Array.isArray(e)) {
       return e;
     }
@@ -61,7 +61,7 @@ export default function AddMember() {
     axios
       .get("https://api.zciea.trade/territories")
       .then((res) => {
-        console.log(res.data.members);
+        // console.log(res.data.members);
         setTerritories(res?.data?.members);
       })
       .catch((err) => {
@@ -74,7 +74,7 @@ export default function AddMember() {
   }, []);
   const onFinish = (values) => {
     setLoading(true);
-    console.log("Received values of form: ", image[0].originFileObj);
+    // console.log("Received values of form: ", image[0].originFileObj);
     let formdata = new FormData();
     Object.entries(values).forEach(([key, value]) =>
       formdata.append(key, value)
@@ -82,9 +82,9 @@ export default function AddMember() {
     formdata.delete("image");
     formdata.append("myFile", image[0].originFileObj);
 
-    for (const pair of formdata.entries()) {
-      console.log(`${pair[0]}, ${pair[1]}`);
-    }
+    // for (const pair of formdata.entries()) {
+    //   console.log(`${pair[0]}, ${pair[1]}`);
+    // }
 
     axios;
     axios({
@@ -94,7 +94,7 @@ export default function AddMember() {
       headers: { "Content-Type": "multipart/form-data" },
     })
       .then((res) => {
-        console.log(res?.data);
+        console.log("RESULTS", res);
         setLoading(false);
         if (!res?.data?.error) {
           setMessage(
@@ -109,7 +109,7 @@ export default function AddMember() {
       })
       .catch((err) => {
         setLoading(false);
-        console.log(err);
+        console.log("Error adding new member", err);
         setMessage("Something went wrong!");
         setMessageType("error");
       });

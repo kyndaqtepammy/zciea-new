@@ -117,7 +117,7 @@ export default function ViewMembers(members) {
       <div>
         <PagesHeader title="View Members" subTitle="All members" />
         <div className="site-card-wrapper">
-          <Table dataSource={dataSource} columns={columns} />;
+          <Table dataSource={dataSource.reverse()} columns={columns} />;
         </div>
       </div>
     </div>

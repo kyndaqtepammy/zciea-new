@@ -1,19 +1,37 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { Descriptions } from "antd";
+import { Alert, Descriptions } from "antd";
 import React, { useRef } from "react";
 import ReactToPrint from "react-to-print";
 import bgimg from "../../public/img/zciea.png";
-import logo from "../../public/img/avatar.webp";
 import Image from "next/image";
-import { Button } from "antd";
+import { Button, Spin } from "antd";
 import { QRCodeSVG } from "qrcode.react";
+import logo from "../../public/img/logo.png";
+import { UploadOutlined, LoadingOutlined } from "@ant-design/icons";
+
+const _URL = "https://api.zciea.trade/uploads/";
+
+const style = {
+  objectFit: "contain!important",
+};
 
 function Member() {
   const router = useRouter();
   const id = router.query.userid;
   const [member, setMember] = useState();
+  const [imageUrl, setImageUrl] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
   const componentRef = useRef();
+  const antIcon = (
+    <LoadingOutlined
+      style={{
+        fontSize: 64,
+        color: "white",
+      }}
+      spin
+    />
+  );
 
   useEffect(() => {
     fetch("https://api.zciea.trade/user", {
@@ -30,14 +48,29 @@ function Member() {
       })
       .then(function (data) {
         setMember(data);
+        setImageUrl(data?.results[0]?.image);
+        setIsLoading(false);
+        console.error("Error:", isLoading);
       })
-      .catch((error) => console.error("Error:", error));
+      .catch((error) => {
+        console.error("Error:", error);
+        setIsLoading(false);
+        <Alert message={error} type="error" />;
+      });
   }, []);
 
-  return (
+  return isLoading ? (
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        height: "100vh",
+      }}
+    >
+      Loading...
+    </div>
+  ) : (
     <div className="site-card-wrapper">
-      {console.log(member?.results[0])}
-
       <div>
         <ReactToPrint
           trigger={() => (
@@ -53,94 +86,6 @@ function Member() {
           pageStyle="@page { size: 3.375in 2.125in }"
         />
         <div ref={componentRef}>
-          {/* <section className="FlexgContainer">
-            <div
-              id="id-img-div"
-              style={{
-                display: "flex",
-                backgroundImage: `url(${bgimg.src})`,
-                backgroundSize: "cover",
-                marginLeft: "14em",
-              }}
-            >
-              <div style={{ display: "flex", flexDirection: "column" }}>
-                <div
-                  id="id-img-div"
-                  style={{ marginLeft: "4em", marginTop: "7em", width: "auto" }}
-                >
-                  <div style={{ border: "3px solid grey", marginTop: "6em" }}>
-                    <Image
-                      width={250}
-                      height={250}
-                      src={logo}
-                      blurDataURL="data:image/jpeg;base64,/9j/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAb/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWEREiMxUf/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
-                      alt="Picture"
-                      placeholder="blur"
-                    />
-                  </div>
-                  <QRCodeSVG
-                    value={member?.results[0]?.name.split(" ")[0]}
-                    style={{ marginTop: "1em", width: "100px" }}
-                  />
-                </div>
-              </div>
-
-              <div>
-                <div
-                  id="id-details-div"
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                  }}
-                >
-                  <span>
-                    <h4>Name: {member?.results[0]?.name.split(" ")[0]}</h4>
-                  </span>
-                  <span>
-                    <h4>Surname: {member?.results[0]?.name.split(" ")[1]}</h4>
-                  </span>
-                  <span>
-                    <h4>ID Number: {member?.results[0]?.id_number}</h4>
-                  </span>
-                  <span>
-                    <h4>Territorry: {member?.results[0]?.territory}</h4>
-                  </span>
-                  <span>
-                    <h4>Gender: {member?.results[0]?.gender}</h4>
-                  </span>
-                  <span style={{ whiteSpace: "nowrap", width: "7em" }}>
-                    <label>Date of issue:</label>
-                    <input
-                      type="text"
-                      style={{
-                        border: "none",
-                        fontSize: "large",
-                        width: "7em",
-                        fontWeight: "500",
-                        paddingLeft: "0.5em",
-                      }}
-                    />
-                  </span>
-                  <br />
-                  <span style={{ whiteSpace: "nowrap" }}>
-                    <label>Expiry Date:</label>
-                    <input
-                      type="text"
-                      style={{
-                        border: "none",
-                        fontSize: "large",
-                        width: "7em",
-                        fontWeight: "500",
-                        paddingLeft: "0.75em",
-                      }}
-                    />
-                  </span>
-                </div>
-              </div>
-            </div>
-          </section> */}
-
           <section
             className="FlexContainer"
             style={{
@@ -157,10 +102,12 @@ function Member() {
                 <Image
                   width={400}
                   height={400}
-                  src={logo}
+                  fill
+                  src={`${_URL}${imageUrl}`}
                   blurDataURL="data:image/jpeg;base64,/9j/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAb/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWEREiMxUf/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
                   alt="Picture"
                   placeholder="blur"
+                  style={{ objectFit: "contain" }}
                 />
               </div>
               <QRCodeSVG
