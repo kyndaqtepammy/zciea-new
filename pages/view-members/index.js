@@ -37,14 +37,14 @@ export default function ViewMembers(members) {
     }),
   };
   const [data, setData] = useState();
-  const [dataSource, setDataSource] = useState(
-    members.members.members.reverse()
-  );
+  const [dataSource, setDataSource] = useState(members?.members?.members);
   const [value, setValue] = useState();
 
   useEffect(() => {
-    setData(members.members.members.reverse());
-  }, [members]);
+    setData(members.members.members);
+    setDataSource(members?.members?.members);
+    console.log("membz", members?.members?.members.reverse());
+  }, []);
 
   const FilterByNameInput = (
     <Input
@@ -117,7 +117,7 @@ export default function ViewMembers(members) {
       <div>
         <PagesHeader title="View Members" subTitle="All members" />
         <div className="site-card-wrapper">
-          <Table dataSource={dataSource.reverse()} columns={columns} />;
+          <Table dataSource={dataSource.slice().reverse()} columns={columns} />;
         </div>
       </div>
     </div>
