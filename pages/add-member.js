@@ -101,7 +101,7 @@ export default function AddMember() {
             "Member Added successfully. Please wait while you are being redirected."
           );
           setMessageType("success");
-          //window.location.replace("/view-members");
+          window.location.replace("/view-members");
         } else {
           setMessage(res?.data?.success);
           setMessageType("warning");
