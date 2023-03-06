@@ -110,9 +110,12 @@ export default function ViewMembers(members) {
               <EyeOutlined />
             </a>
           </Link>
-          <a>
-            <EditOutlined />
-          </a>
+          <Link href={`/edit-member?userid=${record.id}`}>
+            <a>
+              <EditOutlined />
+            </a>
+          </Link>
+
           <a>
             <DeleteOutlined />
           </a>

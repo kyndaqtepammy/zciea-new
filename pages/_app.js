@@ -24,6 +24,7 @@ function MyApp({ Component, pageProps }) {
     "/all-users",
     "/active-inactive",
     "/add-member",
+    "/edit-member",
     "/disability",
   ];
 

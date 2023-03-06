@@ -147,14 +147,6 @@ export default function AddMember() {
             <Input />
           </Form.Item>
 
-          {/* <Form.Item
-            label="Last Name"
-            name="last_name"
-            rules={[{ required: true, message: "Value cannot be empty" }]}
-          >
-            <Input />
-          </Form.Item> */}
-
           <Form.Item
             label="ID Number"
             name="id_number"
