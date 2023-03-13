@@ -36,7 +36,7 @@ export default function MemberId() {
         setMember(data?.results?.[0]);
         // setImageUrl(data?.results?.[0]?.image);
         setIsLoading(false);
-        console.log("mesej:", data);
+        console.log("mesej:", data?.results?.[0]);
       })
       .catch((error) => {
         console.error("Error:", error);
