@@ -34,7 +34,7 @@ export default function MemberId() {
       })
       .then(function (data) {
         setMember(data?.results?.[0]);
-        setImageUrl(data?.results?.[0]?.image);
+        // setImageUrl(data?.results?.[0]?.image);
         setIsLoading(false);
         console.log("mesej:", data);
       })
@@ -59,7 +59,7 @@ export default function MemberId() {
     <div className="site-card-wrapper">
       <Descriptions title="User Info" colon column={1} size="medium">
         <div>
-          <img
+          {/* <img
             src={`${_URL}${member?.image}`}
             style={{
               border: "3px solid grey",
@@ -67,7 +67,7 @@ export default function MemberId() {
               width: "200px",
             }}
             alt="Image of member"
-          />
+          /> */}
         </div>
         <Descriptions.Item label="Name" labelStyle={{ fontWeight: 700 }}>
           {member?.name}
