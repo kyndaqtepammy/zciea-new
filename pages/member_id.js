@@ -43,7 +43,7 @@ export default function MemberId() {
         setIsLoading(false);
         <Alert message={error} type="error" />;
       });
-  }, []);
+  }, [id]);
 
   return isLoading ? (
     <div
