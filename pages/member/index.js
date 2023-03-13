@@ -111,7 +111,7 @@ function Member() {
                 />
               </div>
               <QRCodeSVG
-                value={member?.results[0]?.name.split(" ")[0]}
+                value={`https://zciea-new.vercel.app/member_id/?userid=${member?.results[0]?.id}`}
                 style={{ marginTop: "1em", width: "100px" }}
               />
             </div>
