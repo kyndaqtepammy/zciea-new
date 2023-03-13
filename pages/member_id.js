@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { Image } from "next/image";
 import { LoadingOutlined } from "@ant-design/icons";
+import Alert from "antd";
 export default function MemberId() {
   const router = useRouter();
   const id = router.query.userid;
@@ -44,7 +45,17 @@ export default function MemberId() {
       });
   }, []);
 
-  return (
+  return isLoading ? (
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        height: "100vh",
+      }}
+    >
+      Loading...
+    </div>
+  ) : (
     <div className="site-card-wrapper">
       <Descriptions title="User Info" colon column={1} size="medium">
         <div>
@@ -55,6 +66,7 @@ export default function MemberId() {
               marginTop: "2em",
               width: "200px",
             }}
+            alt="Image of member"
           />
         </div>
         <Descriptions.Item label="Name" labelStyle={{ fontWeight: 700 }}>
