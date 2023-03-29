@@ -78,26 +78,30 @@ export default function MemberId() {
         <Descriptions.Item label="Gender" labelStyle={{ fontWeight: 700 }}>
           {member?.gender}
         </Descriptions.Item>
-        <Descriptions.Item label="Amount paid" labelStyle={{ fontWeight: 700 }}>
+        {/* <Descriptions.Item label="Amount paid" labelStyle={{ fontWeight: 700 }}>
           {member?.amount}
-        </Descriptions.Item>
-        <Descriptions.Item label="Address" labelStyle={{ fontWeight: 700 }}>
+        </Descriptions.Item> */}
+        {/* <Descriptions.Item label="Address" labelStyle={{ fontWeight: 700 }}>
           {member?.address}
-        </Descriptions.Item>
-        <Descriptions.Item
+        </Descriptions.Item> */}
+        {/* <Descriptions.Item
           label="Phone Number"
           labelStyle={{ fontWeight: 700 }}
         >
           {member?.contact}
-        </Descriptions.Item>
-        <Descriptions.Item label="Email" labelStyle={{ fontWeight: 700 }}>
-          {member?.email}
-        </Descriptions.Item>
+        </Descriptions.Item> */}
+
         <Descriptions.Item label="ID Number" labelStyle={{ fontWeight: 700 }}>
           {member?.id_number}
         </Descriptions.Item>
-        <Descriptions.Item label="Trade" labelStyle={{ fontWeight: 700 }}>
-          {member?.trade}
+        <Descriptions.Item
+          label="Date of issue"
+          labelStyle={{ fontWeight: 700 }}
+        >
+          {member?.subscription_date}
+        </Descriptions.Item>
+        <Descriptions.Item label="Expiry Date" labelStyle={{ fontWeight: 700 }}>
+          {member?.expiry_date}
         </Descriptions.Item>
       </Descriptions>
     </div>

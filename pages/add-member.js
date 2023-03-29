@@ -34,17 +34,16 @@ export default function AddMember() {
     />
   );
 
-  const prefixSelector = (
-    <Form.Item name="prefix" noStyle>
-      <Select
-        style={{
-          width: 70,
-        }}
-      >
-        <Option value="263">+263</Option>
-        <Option value="1">+1</Option>
-      </Select>
-    </Form.Item>
+  const selectBefore = (
+    <Select
+      defaultValue="263"
+      style={{
+        width: 60,
+      }}
+    >
+      <Option value="263">263</Option>
+      <Option value="27">27</Option>
+    </Select>
   );
 
   const normFile = (e) => {
@@ -74,19 +73,29 @@ export default function AddMember() {
   }, []);
   const onFinish = (values) => {
     setLoading(true);
-    // console.log("Received values of form: ", image[0].originFileObj);
     let formdata = new FormData();
+    var dateString = values.date_of_birth._d;
+    var date = new Date(Date.parse(dateString));
+    var year = date.getFullYear();
+    var month = ("0" + (date.getMonth() + 1)).slice(-2);
+    var day = ("0" + date.getDate()).slice(-2);
+    var hour = ("0" + date.getHours()).slice(-2);
+    var minute = ("0" + date.getMinutes()).slice(-2);
+    var second = ("0" + date.getSeconds()).slice(-2);
+    var datetimeString =
+      year + "-" + month + "-" + day + " " + hour + ":" + minute + ":" + second;
     Object.entries(values).forEach(([key, value]) =>
       formdata.append(key, value)
     );
     formdata.delete("image");
+    formdata.delete("date_of_birth");
     formdata.append("myFile", image[0].originFileObj);
+    formdata.append("date_of_birth", datetimeString);
 
-    // for (const pair of formdata.entries()) {
-    //   console.log(`${pair[0]}, ${pair[1]}`);
-    // }
+    for (const pair of formdata.entries()) {
+      console.log(`${pair[0]}, ${pair[1]}`);
+    }
 
-    axios;
     axios({
       method: "post",
       url: "https://api.zciea.trade/test",
@@ -206,7 +215,17 @@ export default function AddMember() {
             rules={[{ required: true, message: "Value cannot be empty" }]}
           >
             <InputNumber
-              addonBefore={prefixSelector}
+              addonBefore={
+                <select
+                  defaultValue="263"
+                  style={{
+                    width: 60,
+                  }}
+                >
+                  <option value="263">263</option>
+                  <option value="27">27</option>
+                </select>
+              }
               style={{
                 width: "100%",
               }}

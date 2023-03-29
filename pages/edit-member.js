@@ -288,7 +288,16 @@ function EditMember() {
           rules={[{ required: true, message: "Value cannot be empty" }]}
         >
           <InputNumber
-            addonBefore={prefixSelector}
+            addonBefore={
+              <select
+                style={{
+                  width: 70,
+                }}
+              >
+                <option value="263">+263</option>
+                <option value="27">+27</option>
+              </select>
+            }
             style={{
               width: "100%",
             }}

@@ -53,7 +53,7 @@ export default function Home() {
         }
         if (response.data.error === null && response.data.token) {
           if (typeof window !== "undefined") {
-            localStorage.setItem(LOGGED_IN, true);
+            localStorage.setItem(LOGGED_IN, "1");
             localStorage.setItem(TOKEN, response.data.token);
             setLoginSucess(success);
             router.push("/dashboard");

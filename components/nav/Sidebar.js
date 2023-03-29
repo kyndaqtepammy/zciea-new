@@ -32,10 +32,10 @@ function Sidebar(pageProps) {
       var isLoggedIn = localStorage.getItem(LOGGED_IN);
       var token = localStorage.getItem(TOKEN);
     }
-    if (!isLoggedIn && !token) {
-      router.push("/403");
-    } else {
+    if (isLoggedIn === "1") {
       setIsLoading(false);
+    } else {
+      router.push("/403");
     }
   });
   return (
@@ -119,8 +119,8 @@ function Sidebar(pageProps) {
               onClick={(e) => {
                 // console.log(e);
                 router.push(e.key);
-                localStorage.removeItem(LOGGED_IN);
-                localStorage.removeItem(TOKEN);
+                // localStorage.removeItem(LOGGED_IN);
+                // localStorage.removeItem(TOKEN);
               }}
             />
           </Sider>

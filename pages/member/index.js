@@ -9,7 +9,7 @@ import { Button, Spin } from "antd";
 import { QRCodeSVG } from "qrcode.react";
 import logo from "../../public/img/logo.png";
 import { UploadOutlined, LoadingOutlined } from "@ant-design/icons";
-
+import axios from "axios";
 const _URL = "https://api.zciea.trade/uploads/";
 
 const style = {
@@ -20,6 +20,9 @@ function Member() {
   const router = useRouter();
   const id = router.query.userid;
   const [member, setMember] = useState();
+  const [message, setMessage] = useState("");
+  const [messageType, setMessageType] = useState("");
+  const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const componentRef = useRef();
@@ -32,6 +35,9 @@ function Member() {
       spin
     />
   );
+
+  const issueRef = useRef();
+  const expRef = useRef();
 
   useEffect(() => {
     fetch("https://api.zciea.trade/user", {
@@ -58,6 +64,46 @@ function Member() {
         <Alert message={error} type="error" />;
       });
   }, []);
+  const updateInfo = () => {
+    let formdata = new FormData();
+    Object.entries(member?.results[0]).forEach(([key, value]) =>
+      formdata.append(key, value)
+    );
+    formdata.delete("subscription_date");
+    formdata.delete("expiry_date");
+    formdata.append("subscription_date", issueRef.current.value);
+    formdata.append("expiry_date", expRef.current.value);
+    for (const pair of formdata.entries()) {
+      console.log(`${pair[0]}, ${pair[1]}`);
+    }
+    console.log("After print do this", issueRef.current.value);
+    axios({
+      method: "post",
+      url: "https://api.zciea.trade/editmember",
+      data: formdata,
+      headers: { "Content-Type": "multipart/form-data" },
+    })
+      .then((res) => {
+        console.log("RESULTS", res);
+        setLoading(false);
+        if (!res?.data?.error) {
+          setMessage(
+            "Member Added successfully. Please wait while you are being redirected."
+          );
+          setMessageType("success");
+          //window.location.replace("/view-members");
+        } else {
+          setMessage(res?.data?.success);
+          setMessageType("warning");
+        }
+      })
+      .catch((err) => {
+        setLoading(false);
+        console.log("Error adding new member", err);
+        setMessage("Something went wrong!");
+        setMessageType("error");
+      });
+  };
 
   return isLoading ? (
     <div
@@ -73,13 +119,14 @@ function Member() {
     <div className="site-card-wrapper">
       <div>
         <ReactToPrint
+          onAfterPrint={updateInfo}
           trigger={() => (
             <Button
               type="success"
               size="large"
               style={{ marginBottom: "2em", width: "-wekit-fill-available" }}
             >
-              Print Id
+              Save and Print ID
             </Button>
           )}
           content={() => componentRef.current}
@@ -135,6 +182,7 @@ function Member() {
               <span style={{ whiteSpace: "nowrap", width: "7em" }}>
                 <label>Date of issue:</label>
                 <input
+                  ref={issueRef}
                   type="text"
                   style={{
                     border: "none",
@@ -149,6 +197,7 @@ function Member() {
               <span style={{ whiteSpace: "nowrap" }}>
                 <label>Expiry Date:</label>
                 <input
+                  ref={expRef}
                   type="text"
                   style={{
                     border: "none",
