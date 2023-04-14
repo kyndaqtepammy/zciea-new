@@ -93,7 +93,10 @@ function Sidebar(pageProps) {
                 {
                   icon: <HeatMapOutlined />,
                   label: "Territories",
-                  children: [{ label: "All Territories", key: "/territories" }],
+                  children: [
+                    { label: "All Territories", key: "/territories" },
+                    { label: "Add New Territory", key: "/add-territory" },
+                  ],
                 },
                 {
                   key: "/reports",

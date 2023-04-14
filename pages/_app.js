@@ -28,7 +28,8 @@ function MyApp({ Component, pageProps }) {
     "/add-member",
     "/edit-member",
     "/disability",
-    "/member_id",
+    //"/member_id",
+    "/add-territory",
   ];
 
   const showAdminDash = dashRoutes.includes(router.pathname) ? true : false;
