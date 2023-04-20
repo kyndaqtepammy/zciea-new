@@ -179,8 +179,13 @@ function Member() {
               <span>
                 <h4>Gender: {member?.results[0]?.gender}</h4>
               </span>
-              <span style={{ whiteSpace: "nowrap", width: "7em" }}>
-                <label>Date of issue:</label>
+              <span
+                style={{
+                  whiteSpace: "nowrap",
+                  width: "7em",
+                }}
+              >
+                <label style={{ fontWeight: 900 }}>Date of issue:</label>
                 <input
                   ref={issueRef}
                   type="text"
@@ -188,14 +193,14 @@ function Member() {
                     border: "none",
                     fontSize: "large",
                     width: "7em",
-                    fontWeight: "500",
+                    fontWeight: "900",
                     paddingLeft: "0.5em",
                   }}
                 />
               </span>
               <br />
               <span style={{ whiteSpace: "nowrap" }}>
-                <label>Expiry Date:</label>
+                <label style={{ fontWeight: 900 }}>Expiry Date:</label>
                 <input
                   ref={expRef}
                   type="text"
@@ -203,7 +208,7 @@ function Member() {
                     border: "none",
                     fontSize: "large",
                     width: "7em",
-                    fontWeight: "500",
+                    fontWeight: "900",
                     paddingLeft: "0.75em",
                   }}
                 />
