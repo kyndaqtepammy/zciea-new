@@ -36,7 +36,8 @@ export default function Inactive(members) {
               exportToCSV(
                 data,
                 "Inactive Members Report_" +
-                  new Date(Date.now()).toLocaleString().split(",")[0]
+                  new Date(Date.now()).toLocaleString().split(",")[0],
+                ["Territory", "Inactive members"]
               );
             }}>
             Export as Excel

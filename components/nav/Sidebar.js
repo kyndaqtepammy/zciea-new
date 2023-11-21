@@ -106,6 +106,8 @@ function Sidebar(pageProps) {
                     { label: "Inactive", key: "/inactive" },
                     { label: "Disability", key: "/disability" },
                     { label: "By Profession", key: "/by-profession" },
+                    { label: "By Age", key: "/by-age" },
+                    { label: "By Gender", key: "/by-gender" },
                   ],
                 },
                 // {

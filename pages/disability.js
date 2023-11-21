@@ -39,7 +39,8 @@ export default function Disability(members) {
               exportToCSV(
                 data,
                 "Disability Report_" +
-                  new Date(Date.now()).toLocaleString().split(",")[0]
+                  new Date(Date.now()).toLocaleString().split(",")[0],
+                ["Territory", "Members"]
               );
             }}>
             Export as Excel

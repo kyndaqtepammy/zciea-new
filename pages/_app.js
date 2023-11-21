@@ -30,6 +30,8 @@ function MyApp({ Component, pageProps }) {
     "/disability",
     "/by-profession",
     "/add-territory",
+    "/by-age",
+    "/by-gender",
   ];
 
   const showAdminDash = dashRoutes.includes(router.pathname) ? true : false;

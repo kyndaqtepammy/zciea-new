@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Button } from "antd";
 import { exportToCSV } from "../utils/excel-export";
 
-export default function ViewMembers(members) {
+export default function ByProffesion(members) {
   const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
       console.log(
@@ -89,7 +89,8 @@ export default function ViewMembers(members) {
             exportToCSV(
               professions,
               "Trades Report_" +
-                new Date(Date.now()).toLocaleString().split(",")[0]
+                new Date(Date.now()).toLocaleString().split(",")[0],
+              ["Trade", "Total members"]
             );
           }}>
           Export as Excel
