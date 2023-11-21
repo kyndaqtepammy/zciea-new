@@ -16,8 +16,8 @@ export default function ActiveInactive(members) {
       <div className="site-card-wrapper">
         <div>
           <PagesHeader
-            title="Disability Report"
-            subTitle="Members by disablity"
+            title="Active Member"
+            subTitle="Members that are currently active"
           />
           {data?.length > 0 ? (
             <div className="site-card-wrapper">
@@ -31,8 +31,7 @@ export default function ActiveInactive(members) {
                 justifyContent: "center",
                 height: "80vh",
                 alignItems: "center",
-              }}
-            >
+              }}>
               <h2>No data to show</h2>
             </div>
           )}
@@ -40,4 +39,14 @@ export default function ActiveInactive(members) {
       </div>
     </>
   );
+}
+export async function getStaticProps() {
+  const res = await fetch("https://api.zciea.trade/active");
+  const members = await res.json();
+
+  return {
+    props: {
+      members,
+    },
+  };
 }

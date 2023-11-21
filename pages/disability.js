@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import PagesHeader from "../components/header/Pageheader";
-
+import { Button } from "antd";
+import { exportToCSV } from "../utils/excel-export";
 const Bar = dynamic(() => import("@ant-design/charts").then(({ Bar }) => Bar), {
   ssr: false,
 });
@@ -32,6 +33,17 @@ export default function Disability(members) {
             title="Disability Report"
             subTitle="Members by disablity"
           />
+          <Button
+            title=""
+            onClick={() => {
+              exportToCSV(
+                data,
+                "Disability Report_" +
+                  new Date(Date.now()).toLocaleString().split(",")[0]
+              );
+            }}>
+            Export as Excel
+          </Button>
           <div className="site-card-wrapper">
             <Bar {...config} />
           </div>

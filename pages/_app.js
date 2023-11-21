@@ -28,7 +28,7 @@ function MyApp({ Component, pageProps }) {
     "/add-member",
     "/edit-member",
     "/disability",
-    //"/member_id",
+    "/by-profession",
     "/add-territory",
   ];
 

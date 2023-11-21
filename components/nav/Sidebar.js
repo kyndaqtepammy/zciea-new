@@ -47,8 +47,7 @@ function Sidebar(pageProps) {
             justifyContent: "center",
             alignItems: "center",
             height: "50vh",
-          }}
-        >
+          }}>
           <h2>Loading...</h2>
         </div>
       ) : (
@@ -106,6 +105,7 @@ function Sidebar(pageProps) {
                     { label: "Active", key: "/active-inactive" },
                     { label: "Inactive", key: "/inactive" },
                     { label: "Disability", key: "/disability" },
+                    { label: "By Profession", key: "/by-profession" },
                   ],
                 },
                 // {
@@ -135,8 +135,7 @@ function Sidebar(pageProps) {
                 paddingLeft: 10,
                 backgroundColor: "#22af47",
                 color: "white",
-              }}
-            >
+              }}>
               {React.createElement(
                 collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
                 {
@@ -149,8 +148,7 @@ function Sidebar(pageProps) {
                   color: "white",
                   fontSize: "1.2em",
                   paddingLeft: "2em",
-                }}
-              >
+                }}>
                 ZIMBABWE CHAMBER OF INFORMAL ECONOMY ASSOCIATIONS
               </a>
             </Header>
@@ -158,8 +156,7 @@ function Sidebar(pageProps) {
               className="site-layout-background"
               style={{
                 minHeight: "100vh",
-              }}
-            >
+              }}>
               {pageProps.children}
             </Content>
           </Layout>

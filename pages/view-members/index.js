@@ -49,6 +49,7 @@ export default function ViewMembers(members) {
         // Do something with the data
         setIsLoading(false);
         setData(data.members);
+        console.log(data.members);
         setDataSource(data?.members);
       })
       .catch((error) => {
@@ -139,8 +140,7 @@ export default function ViewMembers(members) {
                 justifyContent: "center",
                 alignItems: "center",
                 height: "50vh",
-              }}
-            >
+              }}>
               <h2>Loading...</h2>
             </div>
           ) : (
