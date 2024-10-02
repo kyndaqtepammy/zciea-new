@@ -3,11 +3,11 @@ import {
   EditOutlined,
   MailOutlined,
   EyeOutlined,
-} from "@ant-design/icons";
-import { Table, Space, Input } from "antd";
-import PagesHeader from "../../components/header/Pageheader";
-import { useEffect, useState } from "react";
-import Link from "next/link";
+} from '@ant-design/icons';
+import { Table, Space, Input } from 'antd';
+import PagesHeader from '../../components/header/Pageheader';
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
 //const { Search } = Input;
 
 export default function ViewMembers(members) {
@@ -26,12 +26,12 @@ export default function ViewMembers(members) {
     onChange: (selectedRowKeys, selectedRows) => {
       console.log(
         `selectedRowKeys: ${selectedRowKeys}`,
-        "selectedRows: ",
+        'selectedRows: ',
         selectedRows
       );
     },
     getCheckboxProps: (record) => ({
-      disabled: record.name === "Disabled User",
+      disabled: record.name === 'Disabled User',
       // Column configuration not to be checked
       name: record.name,
     }),
@@ -43,7 +43,7 @@ export default function ViewMembers(members) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetch("https://api.zciea.trade/reports")
+    fetch('https://api.zciea.trade/reports')
       .then((response) => response.json())
       .then((data) => {
         // Do something with the data
@@ -53,7 +53,7 @@ export default function ViewMembers(members) {
         setDataSource(data?.members);
       })
       .catch((error) => {
-        console.error("Error:", error);
+        console.error('Error:', error);
         setError(true);
         setIsLoading(false);
       });
@@ -61,11 +61,11 @@ export default function ViewMembers(members) {
 
   const FilterByNameInput = (
     <Input
-      placeholder="Search Name"
+      placeholder='Search Name'
       value={value}
       onChange={(e) => {
         const currValue = e.target.value;
-        const pattern = RegExp(currValue, "gi");
+        const pattern = RegExp(currValue, 'gi');
         setValue(currValue);
         const filteredData = data.filter((entry) =>
           entry.name.toLowerCase().includes(currValue.toLowerCase())
@@ -77,18 +77,18 @@ export default function ViewMembers(members) {
   const columns = [
     {
       title: FilterByNameInput,
-      dataIndex: "name",
-      key: "name",
+      dataIndex: 'name',
+      key: 'name',
     },
     {
-      title: "Trade",
-      dataIndex: "trade",
-      key: "trade",
+      title: 'Trade',
+      dataIndex: 'trade',
+      key: 'trade',
     },
     {
-      title: "Territory",
-      dataIndex: "territory",
-      key: "territory",
+      title: 'Territory',
+      dataIndex: 'territory',
+      key: 'territory',
     },
     // {
     //   title: "Age",
@@ -97,15 +97,15 @@ export default function ViewMembers(members) {
     //   render: (dob) => <p>{getAge(dob)}</p>,
     // },
     {
-      title: "Gender",
-      dataIndex: "gender",
-      key: "gender",
+      title: 'Gender',
+      dataIndex: 'gender',
+      key: 'gender',
     },
     {
-      title: "Actions",
-      key: "action",
+      title: 'Actions',
+      key: 'action',
       render: (_, record) => (
-        <Space size="middle">
+        <Space size='middle'>
           <Link href={`/member?userid=${record.id}`}>
             <a>
               <EyeOutlined />
@@ -129,17 +129,22 @@ export default function ViewMembers(members) {
   ];
 
   return (
-    <div className="site-card-wrapper">
+    <div
+      className='site-card-wrapper'
+      style={{ backgroundColor: '#fff' }}>
       <div>
-        <PagesHeader title="View Members" subTitle="All members" />
-        <div className="site-card-wrapper">
+        <PagesHeader
+          title='View Members'
+          subTitle='All members'
+        />
+        <div>
           {isLoading ? (
             <div
               style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                height: "50vh",
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: '50vh',
               }}>
               <h2>Loading...</h2>
             </div>
